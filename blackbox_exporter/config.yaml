@@ -1,0 +1,22 @@
+---
+name: Blackbox Exporter
+version: "0.1.0"
+slug: blackbox_exporter
+description: External HTTP and TCP probes for Prometheus
+url: https://github.com/tpaulus/ha-blackbox-exporter
+arch:
+  - amd64
+  - aarch64
+startup: services
+boot: auto
+init: false
+ports:
+  9115/tcp: 9115
+ports_description:
+  9115/tcp: Prometheus metrics and probe endpoint (trusted monitoring clients only)
+map:
+  - type: share
+    read_only: true
+options: {}
+schema: {}
+watchdog: http://[HOST]:[PORT:9115]/-/healthy
