@@ -3,11 +3,10 @@
 1. Add `https://github.com/tpaulus/ha-blackbox-exporter` to the add-on store
    repositories and install **Blackbox Exporter**. Home Assistant builds the
    small image locally using the pinned upstream multi-architecture image.
-2. Copy the example `blackbox.yml` from this repository to
-   `/share/blackbox_exporter/blackbox.yml` on Home Assistant. Create the
-   directory first. The file must be readable by the container's `nobody` user.
-   The add-on intentionally fails to start if configuration is missing or invalid.
-3. Add any deployment-specific modules to that file, then start the add-on.
+2. Create `app_configs/local_blackbox_exporter/blackbox.yml` using this
+   repository's example, then add any deployment-specific modules. Access the
+   app configuration folder through File Editor, SSH, or Samba. The folder is included in app backups.
+3. Start the add-on. It reads the file at `/config/blackbox.yml`.
    Enable **Start on boot** and **Watchdog**. After configuration changes,
    restart the add-on. The watchdog checks the exporter, not target health.
 4. Verify `http://HOME_ASSISTANT_IP:9115/-/healthy` and `/metrics` from the
@@ -16,8 +15,8 @@
 The add-on exposes an **unauthenticated** probe API on TCP 9115.
 Restrict access to trusted monitoring clients using your network firewall.
 Do not expose it to the Internet or untrusted VLANs: callers can ask it to
-connect to arbitrary destinations and read probe diagnostics. The read-only
-share mount is for configuration; do not put credentials in this repository.
+connect to arbitrary destinations and read probe diagnostics. The app
+configuration mount is read-only.
 
 # Prometheus
 

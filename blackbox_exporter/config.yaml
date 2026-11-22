@@ -15,7 +15,7 @@ ports:
 ports_description:
   9115/tcp: Prometheus metrics and probe endpoint (trusted monitoring clients only)
 map:
-  - type: share
+  - type: app_config
     read_only: true
 options: {}
 schema: {}
